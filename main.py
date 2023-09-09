@@ -15,7 +15,7 @@ def api():
     current_day = datetime.datetime.utcnow().strftime('%A')
     utc_time = datetime.datetime.utcnow().replace(second=0, microsecond=0).isoformat() + 'Z'
     github_file_url = ''
-    github_repo_url = ''
+    github_repo_url = 'https://github.com/Mimi97-aqua/HNG_Zuri.git'
     status_code = 200
 
     result = {
