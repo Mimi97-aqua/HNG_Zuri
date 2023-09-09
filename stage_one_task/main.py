@@ -1,5 +1,7 @@
 import datetime
-from flask import Flask, request, jsonify
+import json
+
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -27,7 +29,9 @@ def api():
         'status_code': status_code
     }
 
-    return jsonify(result)
+    result = json.dumps(result)
+
+    return result, 200, {'Content-Type': 'application/json'}
 
 
 if __name__ == '__main__':
