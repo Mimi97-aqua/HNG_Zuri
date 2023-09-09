@@ -1,10 +1,4 @@
-# HNG_Zuri
-* HNG Internship Tasks
-* Track: Backend
-
-## Tasks
-
-### Stage One Task
+## Stage One Task
 ##### Objective
 
 Create and host an endpoint using any programming language of your choice.
