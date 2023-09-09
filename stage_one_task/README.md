@@ -15,6 +15,7 @@ The GitHub URL of the full source code.
 A  Status Code of Success
 
 ##### JSON
+```angular2html
 {
   "slack_name": "example_name",
   "current_day": "Monday",
@@ -25,6 +26,7 @@ A  Status Code of Success
   "status_code": 200
 }
 
+```
 ##### Acceptance Criteria
 * Endpoint Creation: Provide a publicly accessible endpoint.
 * GET Parameters: The endpoint should accept two GET request query parameters: slack_name and track.
@@ -41,22 +43,15 @@ A  Status Code of Success
   * Ensure the endpoint is accessible.
   * Check the returned JSON against the defined format.
   * Validate the correctness of each data point in the JSON response.
-  
-##### Submission Mode
 
-Please follow these submission guidelines
-* Get into your DM
-* Type /grade <your-api-endpoint-url-with-the-query-parameters>
-* E.g: /grade http://example.com/api?slack_name=example_name&track=backend
-* Check your result
-                                                                  Very Important.....
-* Finally, please use the provided Google Form. Within the form, share the URL of your hosted endpoint, along with the GitHub repository link of the file being run, and where the full source code can be found.
+##### Testing 
+To test the _/api/_ endpoint:
+* Make a GET request to `localhost:5000/api/` using:
+  * Your browser
+  * Curl
+  * Postman etc.
+* In the request URL, pass query parameters for:
+  * Slack name eg. `localhost:5000/api/?slack_name=Loni`
+  * Track eg. `localhost:5000/api/?track=backend`
 
-Before submitting, do a final checkwith the grader bot to ensure that your endpoint is operational and meets the specified requirements. Incomplete or non-functional submissions may affect your evaluation.
-
-##### Submission Deadline:
-  The deadline for submissions is 12th September 2023, 11:59 PM GMT + 1.
-  Late submissions will not be entertained .
-  If you encounter any issues or have questions regarding the task or the submission process, please message any backend mentor.
-  Best of luck!
-
+_Note_: If none of these parameters are passed, then the JSON file will return `null` for the *slack_name* and _track_ values.
