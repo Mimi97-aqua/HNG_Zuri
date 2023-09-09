@@ -29,7 +29,7 @@ def api():
         'status_code': status_code
     }
 
-    result = json.dumps(result)
+    result = json.dumps(result, indent=4)
 
     return result, 200, {'Content-Type': 'application/json'}
 
