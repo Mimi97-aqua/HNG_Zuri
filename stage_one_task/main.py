@@ -14,7 +14,7 @@ def api():
     }
 
     current_day = datetime.datetime.utcnow().strftime('%A')
-    utc_time = datetime.datetime.utcnow().replace(second=0, microsecond=0).isoformat() + 'Z'
+    utc_time = datetime.datetime.utcnow().isoformat() + 'Z'
     github_file_url = 'https://github.com/Mimi97-aqua/HNG_Zuri/blob/main/stage_one_task/main.py'
     github_repo_url = 'https://github.com/Mimi97-aqua/HNG_Zuri.git'
     status_code = 200
