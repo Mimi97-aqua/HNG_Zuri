@@ -6,7 +6,7 @@ from flask import Flask, request
 app = Flask(__name__)
 
 
-@app.route('/api/', methods=['GET'])
+@app.route('/api', methods=['GET'])
 def api():
     get_parameters = {
         'slack_name': request.args.get('slack_name'),
@@ -35,5 +35,5 @@ def api():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=1150)
 
