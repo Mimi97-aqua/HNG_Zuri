@@ -1,29 +1,18 @@
 from flask import jsonify
 from data.resource import *
-from flask_marshmallow import Marshmallow
 import json
-
-# Initialization
-ma = Marshmallow(app)
-
-
-# Class definition for Marshmallow Person Schema
-class PersonSchema(ma.Schema):
-    class Meta:
-        fields = ('user_id', 'name', 'gender', 'email', 'age', 'weight')
-
-
-person_schema = PersonSchema()
-persons_schema = PersonSchema(many=True)
 
 
 # Fetch details of a person
-@app.route('/api', methods=['GET'])
-def read():
-    persons = Person.query.all()
-    result = persons_schema.dump(persons)
-    result = json.dumps(result, indent=4)
-    return result, 200, {'Content-Type': 'application/json'}
+@app.route('/api/<int:user_id>', methods=['GET'])
+def read(user_id: int):
+    person = Person.query.get(user_id)
+    if person:
+        data = person.serialize()
+        result = json.dumps(data, indent=4)
+        return result, 200, {'Content-Type': 'application/json'}
+    else:
+        return jsonify(message='That user_id does not exist'), 401
 
 
 # print(app.url_map)

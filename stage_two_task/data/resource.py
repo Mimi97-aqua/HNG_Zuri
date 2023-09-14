@@ -68,3 +68,13 @@ class Person(db.Model):
     email = Column(String, unique=True)
     age = Column(Integer)
     weight = Column(Float)
+
+    def serialize(self):
+        return {
+            'user_id': self.user_id,
+            'name': self.name,
+            'gender': self.gender,
+            'email': self.email,
+            'age': self.age,
+            'weight': self.weight
+        }
