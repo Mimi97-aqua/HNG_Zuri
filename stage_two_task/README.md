@@ -80,4 +80,4 @@ Provide a documentation file (e.g., DOCUMENTATION.md in your GitHub repo) that o
 
 ##### Usage:
 To use this API, visit `localhost:5000/api` using your the required HTTP method.
-See more details in [DOCUMENTATION.md]()
+See more details in [DOCUMENTATION.md](https://github.com/Mimi97-aqua/HNG_Zuri/blob/main/stage_two_task/DOCUMENTATION.md)
