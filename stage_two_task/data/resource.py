@@ -65,12 +65,13 @@ class Person(db.Model):
     user_id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String, nullable=False)
     gender = Column(Boolean)
-    email = Column(String, unique=True)
+    email = Column(String, unique=True, nullable=False)
     age = Column(Integer)
     weight = Column(Float)
 
     __table_args__ = (
         CheckConstraint('name IS NOT NULL', name='check_name_not_null'),
+        CheckConstraint('email IS NOT NULL', name='check_name_not_null'),
         UniqueConstraint('email', name='unique_email'),
         CheckConstraint('age >= 0', name='check_age_positive'),
         CheckConstraint('weight >= 0.0', name='check_weight_positive')

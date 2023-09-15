@@ -4,27 +4,28 @@ import json
 
 
 # CREATE: Adding a new person
-@app.route('/api', methods=['GET', 'POST'])
+@app.route('/api', methods=['POST'])
 def create():
-    if request.method == 'GET':
-        persons = Person.query.all()
-        data = [person.serialize() for person in persons]
-        result = json.dumps(data, indent=4)
-        return result, 200, {'Content-Type': 'application/json'}
-    elif request.method == 'POST':
+    if request.method == "POST":
         name = request.json.get('name')
         gender = request.json.get('gender')
         email = request.json.get('email')
         age = request.json.get('age')
         weight = request.json.get('weight')
 
-        person_new = Person(name=name, gender=gender, email=email, age=age, weight=weight)
-        db.session.add(person_new)
-        db.session.commit()
+        # Check if person already exists in db
+        existing_person = Person.query.filter_by(email=email).first()
 
-        data = person_new.serialize()
-        result = json.dumps(data, indent=4)
-        return result, 201, {'Content-Type': 'application/json'}
+        if existing_person:
+            return jsonify(message='This person already exists in the database.'), 409
+        else:
+            new_person = Person(name=name, gender=gender, email=email, age=age, weight=weight)
+            db.session.add(new_person)
+            db.session.commit()
+
+            data = new_person.serialize()
+            result = json.dumps(data, indent=4)
+            return result, 201, {'Content-Type': 'application/json'}
     else:
         return jsonify(message='Incorrect HTTP verb'), 405
 
@@ -86,14 +87,14 @@ def rud_operations():
             result = json.dumps(data, indent=4)
             return result, 200, {'Content-Type': 'application/json'}
         else:
-            return jsonify(message='This user_id does not exist'), 401
+            return jsonify(message='Person does not exist'), 400
     elif request.method == 'DELETE':
         if person:
             db.session.delete(person)
             db.session.commit()
             return jsonify(message='Person has been successfully deleted.'), 202
         else:
-            return jsonify(message='A person with this user_id does not exist.'), 401
+            return jsonify(message='A person matching this value does not exist.'), 401
     else:
         return jsonify(message='Incorrect HTTP verb'), 405
 
