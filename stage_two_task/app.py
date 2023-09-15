@@ -1,7 +1,6 @@
 from flask import jsonify, request
 from data.resource import *
 import json
-from sqlalchemy import or_
 
 
 # CREATE: Adding a new person
@@ -11,19 +10,27 @@ def create():
         user_id = request.args.get('user_id')
         name = request.json.get('name')
 
-        # Check if person already exists in db
-        existing_person = Person.query.filter(or_(user_id=user_id, name=name)).first()
+        if user_id:
+            existing_person = Person.query.filter_by(user_id=user_id).first()
+        elif name:
+            existing_person = Person.query.filter_by(name=name).first()
+        else:
+            return jsonify(message='Missing user_id or name query parameter')
 
+        # Check if person already exists in db
         if existing_person:
             return jsonify(message='Person already exists.'), 409
         else:
-            new_person = Person(user_id=user_id, name=name)
-            db.session.add(new_person)
-            db.session.commit()
+            if name:
+                new_person = Person(name=name)
+                db.session.add(new_person)
+                db.session.commit()
 
-            data = new_person.serialize()
-            result = json.dumps(data, indent=4)
-            return result, 201, {'Content-Type': 'application/json'}
+                data = new_person.serialize()
+                result = json.dumps(data, indent=4)
+                return result, 201, {'Content-Type': 'application/json'}
+            else:
+                return jsonify(message='Missing name query parameter')
     else:
         return jsonify(message='Incorrect HTTP verb'), 405
 
@@ -49,22 +56,18 @@ def rud_operations():
             result = json.dumps(data, indent=4)
             return result, 200, {'Content-Type': 'application/json'}
         else:
-            return jsonify(message='That user_id does not exist'), 401
+            return jsonify(message='Person matching these values does not exist.'), 401
     elif request.method == 'PUT':
         if person:
+            #Come back here
+
             # Update info
+            user_id = request.json.get('user_id')
             name = request.json.get('name')
-            gender = request.json.get('gender')
-            email = request.json.get('email')
-            age = request.json.get('age')
-            weight = request.json.get('weight')
 
             # Modify info
+            person.user_id = user_id
             person.name = name
-            person.gender = gender
-            person.email = email
-            person.age = age
-            person.weight = weight
 
             # Save changes to db
             db.session.commit()
