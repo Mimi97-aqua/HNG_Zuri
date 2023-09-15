@@ -68,3 +68,16 @@ Provide a documentation file (e.g., DOCUMENTATION.md in your GitHub repo) that o
 * **Detailed Documentation:** Documentation should provide clear guidance on how to use the API, including setup, request/response formats, and sample usage.
 
 ### [Deploy: Setup, run and use API]()
+##### Setup:
+* Clone this repo and run `pip install requirements.txt` in your terminal
+* Download and install:
+  * Postman
+  * DB Browser for SQLite
+  
+##### Run:
+* To run this project:
+  * Type `flask run`
+
+##### Usage:
+To use this API, visit `localhost:5000/api` using your the required HTTP method.
+See more details in [DOCUMENTATION.md]()
