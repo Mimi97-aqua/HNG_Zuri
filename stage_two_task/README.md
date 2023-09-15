@@ -12,16 +12,17 @@ Objective: Build a simple REST API capable of CRUD operations on a resource, say
 1. **REST API Development:** 
 
 Develop an API with endpoints for:
-* CREATE: Adding a new person.  =>/api
-* READ: Fetching details of a person.  => /api/user_id
-* UPDATE: Modifying details of an existing person => /api/user_id
-* DELETE: Removing a person => /api/user_id
+* **CREATE:** Adding a new person.  =>/api
+* **READ:** Fetching details of a person.  => /api/user_id
+* **UPDATE:** Modifying details of an existing person => /api/user_id
+* **DELETE:** Removing a person => /api/user_id
 
 Ensure all interactions with the database are secure and free from common vulnerabilities (e.g., SQL injections).
 
 2. **Database Modelling: (Bonus) UML Diagram:** 
 
 Design and present a UML (Unified Modeling Language) diagram that represents the structure and relationships of your API's classes and models.
+
 3. **Testing:** 
 
 Using tools like Postman or (scripts written in Python using the requests library) that tests each CRUD operation in your API.
