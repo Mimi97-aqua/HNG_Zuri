@@ -1,16 +1,15 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, String, CheckConstraint, Integer
-from flask_migrate import Migrate
 import os
 
 # Configurations
 app = Flask(__name__)
 base_directory = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(base_directory, "persons.db")
+
 # Initialization
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
 
 
 # Flask CLI commands for db
