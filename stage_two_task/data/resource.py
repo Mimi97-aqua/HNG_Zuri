@@ -70,6 +70,8 @@ class Person(db.Model):
     weight = Column(Float)
 
     __table_args__ = (
+        CheckConstraint("name ~ '^[A-Za-z]+$'", name='check_name_string'),
+        CheckConstraint("email ~ '^[A-Za-z]+$'", name='check_name_string'),
         CheckConstraint('name IS NOT NULL', name='check_name_not_null'),
         CheckConstraint('email IS NOT NULL', name='check_name_not_null'),
         UniqueConstraint('email', name='unique_email'),
