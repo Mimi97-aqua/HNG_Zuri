@@ -1,2 +1,2 @@
-## Stage Two Task
+## Stage Two
 ##### Objective

@@ -1,4 +1,4 @@
-## Stage One Task
+## Stage One
 ##### Objective
 
 Create and host an endpoint using any programming language of your choice.
