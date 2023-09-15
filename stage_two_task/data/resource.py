@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String, Float, Boolean
+from sqlalchemy import Column, Integer, String, Float, Boolean, CheckConstraint, UniqueConstraint
 import os
 
 # Configurations
@@ -63,11 +63,18 @@ def db_seed():
 class Person(db.Model):
     __tablename__ = 'persons'
     user_id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String)
+    name = Column(String, nullable=False)
     gender = Column(Boolean)
     email = Column(String, unique=True)
     age = Column(Integer)
     weight = Column(Float)
+
+    __table_args__ = (
+        CheckConstraint('name IS NOT NULL', name='check_name_not_null'),
+        UniqueConstraint('email', name='unique_email'),
+        CheckConstraint('age >= 0', name='check_age_positive'),
+        CheckConstraint('weight >= 0.0', name='check_weight_positive')
+    )
 
     def serialize(self):
         return {
