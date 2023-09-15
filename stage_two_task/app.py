@@ -1,25 +1,23 @@
 from flask import jsonify, request
 from data.resource import *
 import json
+from sqlalchemy import or_
 
 
 # CREATE: Adding a new person
 @app.route('/api', methods=['POST'])
 def create():
     if request.method == "POST":
+        user_id = request.args.get('user_id')
         name = request.json.get('name')
-        gender = request.json.get('gender')
-        email = request.json.get('email')
-        age = request.json.get('age')
-        weight = request.json.get('weight')
 
         # Check if person already exists in db
-        existing_person = Person.query.filter_by(email=email).first()
+        existing_person = Person.query.filter(or_(user_id=user_id, name=name)).first()
 
         if existing_person:
-            return jsonify(message='This person already exists in the database.'), 409
+            return jsonify(message='Person already exists.'), 409
         else:
-            new_person = Person(name=name, gender=gender, email=email, age=age, weight=weight)
+            new_person = Person(user_id=user_id, name=name)
             db.session.add(new_person)
             db.session.commit()
 
@@ -37,10 +35,6 @@ def create():
 def rud_operations():
     user_id = request.args.get('user_id')
     name = request.args.get('name')
-    gender = request.args.get('gender')
-    email = request.args.get('email')
-    age = request.args.get('age')
-    weight = request.args.get('weight')
 
     person = None
 
@@ -48,14 +42,6 @@ def rud_operations():
         person = Person.query.get(user_id)
     elif name:
         person = Person.query.filter_by(name=name).first()
-    elif gender:
-        person = Person.query.filter_by(gender=gender).first()
-    elif email:
-        person = Person.query.filter_by(email=email).first()
-    elif age:
-        person = Person.query.filter_by(age=age).first()
-    elif weight:
-        person = Person.query.filter_by(weight=weight).first()
 
     if request.method == 'GET':
         if person:
