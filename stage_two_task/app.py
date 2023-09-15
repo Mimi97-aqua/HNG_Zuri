@@ -30,15 +30,51 @@ def create():
 
 
 # READ: Fetch details of a person
-@app.route('/api/<int:user_id>', methods=['GET'])
+# UPDATE: Modify details of a person
+# DELETE: Removing a person
+@app.route('/api/<int:user_id>', methods=['GET', 'PUT', 'DELETE'])
 def read(user_id: int):
     person = Person.query.get(user_id)
-    if person:
-        data = person.serialize()
-        result = json.dumps(data, indent=4)
-        return result, 200, {'Content-Type': 'application/json'}
+    if request.method == 'GET':
+        if person:
+            data = person.serialize()
+            result = json.dumps(data, indent=4)
+            return result, 200, {'Content-Type': 'application/json'}
+        else:
+            return jsonify(message='That user_id does not exist'), 401
+    elif request.method == 'PUT':
+        if person:
+            # Update info
+            name = request.json.get('name')
+            gender = request.json.get('gender')
+            email = request.json.get('email')
+            age = request.json.get('age')
+            weight = request.json.get('weight')
+
+            # Modify info
+            person.name = name
+            person.gender = gender
+            person.email = email
+            person.age = age
+            person.weight = weight
+
+            # Save changes to db
+            db.session.commit()
+
+            data = person.serialize()
+            result = json.dumps(data, indent=4)
+            return result, 200, {'Content-Type': 'application/json'}
+        else:
+            return jsonify(message='This user_id does not exist'), 401
+    elif request.method == 'DELETE':
+        if person:
+            db.session.delete(person)
+            db.session.commit()
+            return jsonify(message='Person has been successfully deleted.'), 202
+        else:
+            return jsonify(message='A person with this user_id does not exist.'), 401
     else:
-        return jsonify(message='That user_id does not exist'), 401
+        return jsonify(message='Incorrect HTTP verb'), 405
 
 
 # print(app.url_map)
