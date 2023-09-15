@@ -1,7 +1,9 @@
 # HNG(Zuri) Internship
-This repository cotains results to tasks given during the various stages of the internship.
+This repository contains results to tasks given during the various stages of the internship.
 
-* Track: Backend
+#### Track: Backend
 
 ## Stages (Tasks)
-* [Stage One Task](https://github.com/Mimi97-aqua/HNG_Zuri/tree/main/stage_one_task)
+* [Stage One](https://github.com/Mimi97-aqua/HNG_Zuri/tree/main/stage_one_task)
+* [Stage Two](https://github.com/Mimi97-aqua/HNG_Zuri/tree/main/stage_two_task)
+

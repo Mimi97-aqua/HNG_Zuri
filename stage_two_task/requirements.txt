@@ -1,0 +1,11 @@
+"""
+    Create an Elasticsearch index with a given mapping.
+
+    Parameters:
+        es_client (Elasticsearch): An Elasticsearch client instance.
+        index_name (str): The name of the index to be created.
+        mapping (dict): The mapping for the index.
+
+    Returns:
+        bool: True if the index was successfully created, False otherwise.
+    """
