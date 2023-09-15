@@ -28,27 +28,15 @@ def db_drop():
 @app.cli.command('db_seed')
 def db_seed():
     person1 = Person(
-        name='Emma Busu',
-        gender=False,
-        email='emma@gmail.com',
-        age=30,
-        weight=72.5
+        name='Emma Busu'
     )
 
     person2 = Person(
-        name='Matt Sher',
-        gender=True,
-        email='matt@gmail.com',
-        age=25,
-        weight=67.2
+        name='Matt Sher'
     )
 
     person3 = Person(
-        name='Liam Song',
-        gender=True,
-        email='liam@gmaill.com',
-        age=47,
-        weight=79.0
+        name='Liam Song'
     )
 
     # Add objects
@@ -62,29 +50,19 @@ def db_seed():
 # Database model
 class Person(db.Model):
     __tablename__ = 'persons'
-    user_id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String, nullable=False)
-    gender = Column(Boolean)
-    email = Column(String, unique=True, nullable=False)
-    age = Column(Integer)
-    weight = Column(Float)
+    user_id = Column(String(64), primary_key=True, nullable=False, unique=True)
+    name = Column(String(255), nullable=False)
 
     __table_args__ = (
+        CheckConstraint("user_id ~ '^[0-9]+$'", name="check_id_is_string"),
         CheckConstraint("name ~ '^[A-Za-z]+$'", name='check_name_string'),
-        CheckConstraint("email ~ '^[A-Za-z]+$'", name='check_name_string'),
+        CheckConstraint('user_id IS NOT NULL', name='check_name_not_null'),
         CheckConstraint('name IS NOT NULL', name='check_name_not_null'),
-        CheckConstraint('email IS NOT NULL', name='check_name_not_null'),
-        UniqueConstraint('email', name='unique_email'),
-        CheckConstraint('age >= 0', name='check_age_positive'),
-        CheckConstraint('weight >= 0.0', name='check_weight_positive')
+        CheckConstraint('user-id >= 0', name='check_user_id_positive'),
     )
 
     def serialize(self):
         return {
             'user_id': self.user_id,
-            'name': self.name,
-            'gender': self.gender,
-            'email': self.email,
-            'age': self.age,
-            'weight': self.weight
+            'name': self.name
         }
