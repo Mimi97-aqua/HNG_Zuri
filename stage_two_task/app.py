@@ -32,9 +32,30 @@ def create():
 # READ: Fetch details of a person
 # UPDATE: Modify details of a person
 # DELETE: Removing a person
-@app.route('/api/<int:user_id>', methods=['GET', 'PUT', 'DELETE'])
-def read(user_id: int):
-    person = Person.query.get(user_id)
+@app.route('/api', methods=['GET', 'PUT', 'DELETE'])
+def rud_operations():
+    user_id = request.args.get('user_id')
+    name = request.args.get('name')
+    gender = request.args.get('gender')
+    email = request.args.get('email')
+    age = request.args.get('age')
+    weight = request.args.get('weight')
+
+    person = None
+
+    if user_id:
+        person = Person.query.get(user_id)
+    elif name:
+        person = Person.query.filter_by(name=name).first()
+    elif gender:
+        person = Person.query.filter_by(gender=gender).first()
+    elif email:
+        person = Person.query.filter_by(email=email).first()
+    elif age:
+        person = Person.query.filter_by(age=age).first()
+    elif weight:
+        person = Person.query.filter_by(weight=weight).first()
+
     if request.method == 'GET':
         if person:
             data = person.serialize()
