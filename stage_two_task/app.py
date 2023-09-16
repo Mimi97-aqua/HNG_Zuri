@@ -30,10 +30,9 @@ def create():
 # READ: Fetch details of a person
 # UPDATE: Modify details of a person
 # DELETE: Removing a person
-@app.route('/api', methods=['GET', 'PUT', 'DELETE'])
-def rud_operations():
-    user_id = request.args.get('user_id')
-    name = request.args.get('name')
+@app.route('/api/<int:user_id>', methods=['GET', 'PUT', 'DELETE'])
+@app.route('/api/<string:name>', methods=['GET', 'PUT', 'DELETE'])
+def rud_operations(user_id=None, name=None):
 
     person = None
 
@@ -67,21 +66,6 @@ def rud_operations():
         else:
             return jsonify(message='Person does not exist'), 400
     elif request.method == 'DELETE':
-        if request.is_json:
-            data = request.get_json()
-            user_id = data.get("user_id")
-            name = data.get('name')
-        else:
-            user_id = request.args.get("user_id")
-            name = request.args.get('name')
-
-        person = None
-
-        if user_id:
-            person = Person.query.get(user_id)
-        elif name:
-            person = Person.query.filter_by(name=name).first()
-
         db.session.delete(person)
         db.session.commit()
         return jsonify(message='Person has been successfully deleted.'), 202
