@@ -1,9 +1,9 @@
 ## Stage Two
 ### Table of Content
 * [Task Description](#task-description)
-* [Deploy: Setup, run and use API](#deploy--setup-run-and-use-api)
+* [Deploy: Setup, run, and use API](#deploy--setup-run-and-use-api)
 
-### [Task Description]()
+### [Task Description](#task-description)
 ##### Task Breakdown:
 
 Develop a REST API with Basic CRUD Operation
@@ -67,7 +67,7 @@ Provide a documentation file (e.g., DOCUMENTATION.md in your GitHub repo) that o
 * **GitHub Repository:** Repository should be well-organized, contain all necessary files, and be publicly accessible.
 * **Detailed Documentation:** Documentation should provide clear guidance on how to use the API, including setup, request/response formats, and sample usage.
 
-### [Deploy: Setup, run and use API]()
+### [Deploy: Setup, run, and use API](#deploy--setup-run-and-use-api)
 ##### Setup:
 * Clone this repo and run `pip install requirements.txt` in your terminal
 * Download and install:
